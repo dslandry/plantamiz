@@ -66,6 +66,7 @@ void init_tableau_jeu(){
 
 void afficher_tableau_jeu(){
     int i, j;
+    /*
     for(i=0; i<N_LINES; i++){
         for(j=0;j<N_COL; j++){
             if(position_joueur.i==i && position_joueur.j==j){
@@ -80,52 +81,91 @@ void afficher_tableau_jeu(){
         }
         printf("\n");
     }
-    mettre_couleur_defaut();
+    */
+    for(i=0; i<N_LINES; i++){
+        for(j=0;j<N_COL; j++){
+            printf("%c ",tab_jeu[i][j]);
+        }
+        printf("\n");
+    }
 }
+
+
+
 
 
 void move_up(){
-    gotoxy(15, 9*2);
+    remove_position_joueur(position_joueur.i, position_joueur.j);
     if(position_joueur.i>0){
         position_joueur.i--;
     }
+    update_position_joueur(position_joueur.i, position_joueur.j);
 }
 void move_down(){
+    remove_position_joueur(position_joueur.i, position_joueur.j);
     if(position_joueur.i<N_LINES-1){
         position_joueur.i++;
     }
+    update_position_joueur(position_joueur.i, position_joueur.j);
 }
 void move_left(){
+    remove_position_joueur(position_joueur.i, position_joueur.j);
     if(position_joueur.j>0){
         position_joueur.j--;
     }
+    update_position_joueur(position_joueur.i, position_joueur.j);
 }
 void move_right(){
+    remove_position_joueur(position_joueur.i, position_joueur.j);
     if(position_joueur.j<N_COL-1){
         position_joueur.j++;
     }
+    update_position_joueur(position_joueur.i, position_joueur.j);
 }
 void select_or_unselect(){
+    remove_position_joueur(position_joueur.i, position_joueur.j);
+    if(position_joueur.selected==0){
+        position_joueur.selected=1;
+        mettre_couleur_selectionne();
+    }
+    else{
+        position_joueur.selected=0;
+        mettre_couleur_position_joueur();
+    }
+    gotoxy(position_joueur.j*2, position_joueur.i);
+    printf("%c",tab_jeu[position_joueur.i][position_joueur.j] );
+    mettre_couleur_defaut();
 }
 
+void remove_position_joueur(int i, int j){
+    gotoxy(j*2, i);
+    mettre_couleur_defaut();
+    printf("%c", tab_jeu[i][j]);
+}
+
+void update_position_joueur(int i, int j){
+    gotoxy(j*2, i);
+    mettre_couleur_position_joueur();
+    printf("%c", tab_jeu[i][j]);
+    mettre_couleur_defaut();
+}
 int main()
 {
     int keyboard_press;
 
-    /** initialisations**/
+    /** initialisations **/
 
     init_tableau_jeu();
     init_position_joueur();
-    //mise_a_jour_position_joueur_sur_tableau();
+
+
+    afficher_tableau_jeu();
+
+    update_position_joueur(position_joueur.i, position_joueur.j);
+
     while(1){
-
-
-        system("cls");
-        //gotoxy(3,9);
-
-       afficher_tableau_jeu();
+        gotoxy(0, N_LINES+4); // pour que le curseur ne se retrouve pas dans la grille
         keyboard_press=getch();
-
         switch(keyboard_press){
             case KEY_SPACE:
                 select_or_unselect();
