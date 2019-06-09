@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1560115856 source:c:\users\deugoue_serge\documents\plantamiz\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
