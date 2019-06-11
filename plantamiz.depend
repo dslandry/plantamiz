@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1560122581 source:c:\users\deugoue_serge\documents\plantamiz\main.c
+1560222089 source:c:\users\deugoue_serge\documents\plantamiz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
+	<time.h>
 
